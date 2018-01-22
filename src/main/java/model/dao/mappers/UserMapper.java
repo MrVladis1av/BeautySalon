@@ -19,7 +19,7 @@ public class UserMapper {
             user.setLastName(resultSet.getString("last_name"));
             user.setEmail(resultSet.getString("e_mail"));
             user.setPassword(resultSet.getString("password"));
-            user.setRole(Role.getRole(resultSet.getString("role")));
+            user.setRole(Role.getRole(resultSet.getLong("role")));
         } catch (SQLException e) {
             LOGGER.error("can't map object", e);
         }

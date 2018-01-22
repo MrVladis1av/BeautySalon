@@ -3,6 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <jsp-config>
+        <taglib>
+            <taglib-uri>auth</taglib-uri>
+            <taglib-location>/WEB-INF/tld/auth.tld</taglib-location>
+        </taglib>
+    </jsp-config>
     <resource-ref>
         <description>DB connection</description>
         <res-ref-name>jdbc/beauty_saloon</res-ref-name>
@@ -12,5 +18,27 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/jsp/user/*</url-pattern>
+        <url-pattern>/jsp/admin/*</url-pattern>
+        <url-pattern>/jsp/master/*</url-pattern>
+    </filter-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error-404.jsp</location>
+    </error-page>
+    <servlet>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>controller.command.MainController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/MainController</url-pattern>
+    </servlet-mapping>
 
 </web-app>

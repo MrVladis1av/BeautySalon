@@ -6,20 +6,31 @@ public enum Role {
         public String toString() {
             return "user";
         }
+
     },
     ADMIN {
         @Override
         public String toString() {
             return "admin";
         }
+
+    },
+    MASTER {
+        @Override
+        public String toString() {
+            return "master";
+        }
+
     };
 
-    public static Role getRole(String role) {
-        switch (role) {
-            case "user":
+    public static Role getRole(Long role) {
+        switch (role.intValue()) {
+            case 1:
                 return USER;
-            case "admin":
+            case 2:
                 return ADMIN;
+            case 3:
+                return MASTER;
             default:
                 System.out.println(role);
                 throw new IllegalArgumentException("This role doesn't exist");

@@ -1,6 +1,7 @@
 package model.dao.daoInterfaces;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Dao<T, PK extends Serializable> {

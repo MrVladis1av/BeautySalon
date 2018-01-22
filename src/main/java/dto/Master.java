@@ -56,4 +56,14 @@ public class Master extends User {
     public int hashCode() {
         return Objects.hash(super.hashCode(), masterId, level, phoneNumber, description);
     }
+
+    @Override
+    public String toString() {
+        return "Master{" +
+                "masterId=" + masterId +
+                ", level=" + level +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", description='" + description + '\'' +
+                "} " + super.toString();
+    }
 }

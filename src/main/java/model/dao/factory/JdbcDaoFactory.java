@@ -35,4 +35,8 @@ public class JdbcDaoFactory implements DaoFactory {
     public ImageDao getImageDao() {
         return imageJdbcDao;
     }
+
+    public static JdbcDaoFactory getInstance() {
+        return jdbcDaoFactory;
+    }
 }

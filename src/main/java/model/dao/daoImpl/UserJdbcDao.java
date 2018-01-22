@@ -1,5 +1,6 @@
 package model.dao.daoImpl;
 
+import dto.Role;
 import dto.User;
 import model.dao.daoImpl.template.JdbcHelper;
 import model.dao.daoInterfaces.UserDao;
@@ -23,12 +24,6 @@ public class UserJdbcDao implements UserDao {
 
 
     @Override
-    public User read(String userName) {
-
-        return null;
-    }
-
-    @Override
     public Long add(User user) {
         return helper.insert("INSERT INTO user " +
                         "(first_name," +
@@ -44,34 +39,60 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User find(Long id) {
-        return null;
+        User user = helper.findObject("SELECT * FROM user " +
+                "WHERE iduser=?", UserMapper::map, id);
+        return user;
     }
 
     @Override
     public void update(User user) {
-
+        helper.update("UPDATE user " +
+                        "SET " +
+                        "first_name=?, " +
+                        "last_name=?, " +
+                        "e_mail=?, " +
+                        "password=?, " +
+                        "role=? " +
+                        "WHERE iduser=?",
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPassword(),
+                findRoleId(user.getRole()),
+                user.getUserId());
     }
 
     @Override
     public void delete(Long id) {
+        helper.remove("DELETE FROM user " +
+                "WHERE iduser=?", id);
+    }
 
+    @Override
+    public User findByEmail(String email) {
+        User user = helper.findObject("SELECT * FROM user " +
+                "WHERE e_mail=?", UserMapper::map, email);
+        return user;
     }
 
     @Override
     public List<User> findAll() {
-        String sql = "SELECT iduser,first_name,last_name, e_mail, password, role.role " +
-                "FROM beauty_saloon.user " +
-                "JOIN beauty_saloon.role " +
-                "ON user.role = role.idrole;";
-        List<User> list = new ArrayList<User>();
-        try (PreparedStatement stm = cm.getConnection().prepareStatement(sql)) {
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                list.add(UserMapper.map(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+        List<User> users = helper.findAll("SELECT * FROM user", UserMapper::map);
+        return users;
     }
+
+    @Override
+    public Long findRoleId(Role role) {
+        return helper.findObject("SELECT idrole FROM role " +
+                "WHERE role=?", rs -> {
+            try {
+                return rs.getLong("idrole");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new IllegalStateException(e);
+            }
+        }, role.toString());
+    }
+
+
 }
