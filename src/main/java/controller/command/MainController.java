@@ -8,7 +8,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-
+/**
+ * Main controller that send requests to appropriate commands
+ */
 public class MainController extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainController.class);
 

@@ -20,7 +20,7 @@
     </welcome-file-list>
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
-        <filter-class>filters.AuthenticationFilter</filter-class>
+        <filter-class>filters.AuthorizationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
@@ -31,6 +31,14 @@
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error-404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/jsp/error-403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error-500.jsp</location>
     </error-page>
     <servlet>
         <servlet-name>MainController</servlet-name>

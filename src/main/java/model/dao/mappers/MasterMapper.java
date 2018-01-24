@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Class for simplify a process of entity creation
+ */
 public class MasterMapper {
     private static final Logger LOGGER = LogManager.getLogger(MasterMapper.class);
 

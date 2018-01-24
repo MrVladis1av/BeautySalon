@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Get list with masters for page with list of masters
+ */
 public class MasterListCommand implements Command {
     private MasterService masterService;
 
@@ -20,7 +23,6 @@ public class MasterListCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<Master> masterList = masterService.findAll();
-        System.out.println(masterList);
         request.setAttribute("masters", masterList);
         return Pages.MASTER_LIST;
     }

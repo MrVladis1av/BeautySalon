@@ -12,6 +12,9 @@ import util.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Master creation handler.
+ */
 public class MasterCreationCommand implements Command {
     private MasterService masterService;
 

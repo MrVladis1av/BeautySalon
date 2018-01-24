@@ -17,6 +17,10 @@ public class UserService {
         return false;
     }
 
+    public User findById(Long id) {
+        return dao.find(id);
+    }
+
     public void add(User user) {
         dao.add(user);
     }

@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+/**
+ * My own tag for role validation
+ */
 public class UserRoleTag extends TagSupport {
     private String role;
 

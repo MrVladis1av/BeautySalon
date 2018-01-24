@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap.techie.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap-datetimepicker.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/css/fontawesome-all.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
 
 <link rel="shortcut icon" href="/resources/images/favicon.ico" type="image/ico">
 <script src="/resources/js/jquery.js"></script>

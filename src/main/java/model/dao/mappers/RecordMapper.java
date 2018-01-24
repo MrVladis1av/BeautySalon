@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Class for simplify a process of entity creation
+ */
 public class RecordMapper {
     private static final Logger LOGGER = LogManager.getLogger(RecordMapper.class);
 
@@ -17,14 +19,16 @@ public class RecordMapper {
         try {
             record.setRecordId(resultSet.getLong("idrecord"));
             User user = new User();
-            user.setUserId(resultSet.getLong("iduser"));
+            user.setUserId(resultSet.getLong("user_id"));
+            user.setFirstName(resultSet.getString("first_name"));
+            user.setLastName(resultSet.getString("last_name"));
             record.setUser(user);
             Master master = new Master();
-            master.setMasterId(resultSet.getLong("idmaster"));
+            master.setMasterId(resultSet.getLong("master_id"));
+
             record.setMaster(master);
-            record.setDate(resultSet.getDate("date"));
-            record.setTimeFrom(resultSet.getTime("time_from"));
-            record.setTimeTo(resultSet.getTime("time_to"));
+            record.setDate(resultSet.getString("date"));
+            record.setTimeFrom(resultSet.getString("time_from"));
 
         } catch (SQLException e) {
             LOGGER.error("can't map object", e);

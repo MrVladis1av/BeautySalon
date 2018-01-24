@@ -10,12 +10,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcHelper {
-    private static final Logger LOGGER = LogManager.getLogger(JdbcHelper.class);
+/**
+ * Class that realise basic operation with database
+ */
+public class GenericJdbcDao {
+    private static final Logger LOGGER = LogManager.getLogger(GenericJdbcDao.class);
 
     private ConnectionManager connectionManager;
 
-    public JdbcHelper(ConnectionManager connectionManager) {
+    public GenericJdbcDao(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
 

@@ -17,6 +17,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Class that provides connection to database. Realised as a singleton.
+ */
 public class ConnectionManager {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionManager.class);
 
@@ -47,6 +50,11 @@ public class ConnectionManager {
         return connectionManager;
     }
 
+    /**
+     * Method that creates connectionManager via JNDI
+     *
+     * @param name
+     */
     public static void initFromJNDI(String name) {
         if (connectionManager != null) {
             return;
@@ -61,6 +69,9 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * Method that creates connectionManager via data source like xxx.properties
+     */
     public static void initFromProperties() {
         MysqlDataSource mysqlDs = new MysqlDataSource();
 
@@ -73,6 +84,10 @@ public class ConnectionManager {
 
     }
 
+    /**
+     * Method that uploads file with database credentials
+     * @return
+     */
     private static Properties loadProperties() {
         Properties properties = new Properties();
 

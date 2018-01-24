@@ -9,7 +9,7 @@
 <%@ include file="/resources/components/i18n.jsp" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="title.error.404" bundle="${rb}"/></title>
     <style>
         .error-template {
             padding: 40px 15px;

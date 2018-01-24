@@ -7,9 +7,17 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * Class for getting access to file with data
+ */
 public class ResourcesUtil {
     private static Logger LOGGER = LogManager.getLogger(ResourcesUtil.class);
 
+    /**
+     * Method for getting date from file with database info, that located on path="path"
+     * @param path
+     * @return
+     */
     public static File getResourceFile(String path) {
         URL url = ResourcesUtil.class.getClassLoader().getResource(path);
         File file = null;

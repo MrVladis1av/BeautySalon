@@ -1,20 +1,28 @@
 package model.dao.factory;
 
-import model.dao.daoImpl.ImageJdbcDao;
-import model.dao.daoImpl.MasterJdbcDao;
-import model.dao.daoImpl.RecordJdbcDao;
-import model.dao.daoImpl.UserJdbcDao;
-import model.dao.daoInterfaces.ImageDao;
-import model.dao.daoInterfaces.MasterDao;
-import model.dao.daoInterfaces.RecordDao;
-import model.dao.daoInterfaces.UserDao;
+import model.dao.daoImpl.*;
+import model.dao.daoInterfaces.*;
 
+/**
+ * Class for getting instances of DAO. Realised as a Factory
+ */
 public class JdbcDaoFactory implements DaoFactory {
     private static JdbcDaoFactory jdbcDaoFactory = new JdbcDaoFactory();
     private UserJdbcDao userJdbcDao = new UserJdbcDao();
     private MasterJdbcDao masterJdbcDao = new MasterJdbcDao();
     private RecordJdbcDao recordJdbcDao = new RecordJdbcDao();
-    private ImageJdbcDao imageJdbcDao = new ImageJdbcDao();
+    private CommentJdbcDao commentJdbcDao = new CommentJdbcDao();
+    private ServicePriceJdbcDao servicePriceJdbcDao = new ServicePriceJdbcDao();
+
+    @Override
+    public ServicePriceDao getServicePriceDao() {
+        return servicePriceJdbcDao;
+    }
+
+    @Override
+    public CommentDao getCommentDao() {
+        return commentJdbcDao;
+    }
 
     @Override
     public UserDao getUserDao() {
@@ -31,10 +39,6 @@ public class JdbcDaoFactory implements DaoFactory {
         return recordJdbcDao;
     }
 
-    @Override
-    public ImageDao getImageDao() {
-        return imageJdbcDao;
-    }
 
     public static JdbcDaoFactory getInstance() {
         return jdbcDaoFactory;

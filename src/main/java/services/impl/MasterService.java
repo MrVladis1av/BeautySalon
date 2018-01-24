@@ -29,6 +29,10 @@ public class MasterService {
         return dao.findByEmail(email);
     }
 
+    public Master findById(Long id) {
+        return dao.find(id);
+    }
+
     public boolean isUniqueEmail(String email) {
         if (dao.findByEmail(email) == null) return true;
         return false;

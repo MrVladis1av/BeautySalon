@@ -1,15 +1,15 @@
 package model.dao.mappers;
 
-import dto.Comment;
-import dto.Image;
-import dto.Master;
-import dto.User;
+import dto.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for simplify a process of entity creation
+ */
 public class CommentMapper {
     private static final Logger LOGGER = LogManager.getLogger(CommentMapper.class);
 
@@ -23,6 +23,9 @@ public class CommentMapper {
             User user = new User();
             user.setUserId(resultSet.getLong("user_id"));
             comment.setUser(user);
+            Record record = new Record();
+            record.setRecordId(resultSet.getLong("record_id"));
+            comment.setRecord(record);
             comment.setComment(resultSet.getString("comment_text"));
 
         } catch (SQLException e) {

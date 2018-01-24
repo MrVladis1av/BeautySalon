@@ -12,6 +12,9 @@ import util.Validator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Registration handler
+ */
 public class RegistrationCommand implements Command {
     private UserService userService;
 

@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Authorization handler.
+ * Allows guest to log in
+ */
 public class AuthorizationCommand implements Command {
     private UserService userService;
     private MasterService masterService;
@@ -39,6 +43,7 @@ public class AuthorizationCommand implements Command {
             if (!user.getPassword().equals(Sha256Encoder.encode(password))) {
                 request.setAttribute("isError", true);
                 request.setAttribute("errorMessage", "Wrong pass, please try again.");
+                System.out.println(user.getPassword());
                 return Pages.SIGN_IN_PAGE;
             } else {
                 HttpSession session = request.getSession();

@@ -1,9 +1,6 @@
 package model.dao.factory;
 
-import model.dao.daoInterfaces.ImageDao;
-import model.dao.daoInterfaces.MasterDao;
-import model.dao.daoInterfaces.RecordDao;
-import model.dao.daoInterfaces.UserDao;
+import model.dao.daoInterfaces.*;
 
 public interface DaoFactory {
     UserDao getUserDao();
@@ -12,5 +9,7 @@ public interface DaoFactory {
 
     RecordDao getRecordDao();
 
-    ImageDao getImageDao();
+    CommentDao getCommentDao();
+
+    ServicePriceDao getServicePriceDao();
 }

@@ -2,23 +2,25 @@ package model.dao.daoImpl;
 
 import dto.Master;
 import dto.Role;
-import dto.User;
-import model.dao.daoImpl.template.JdbcHelper;
+import model.dao.daoImpl.template.GenericJdbcDao;
 import model.dao.daoInterfaces.MasterDao;
 import model.dao.jdbc.ConnectionManager;
 import model.dao.mappers.MasterMapper;
-import model.dao.mappers.UserMapper;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 
 public class MasterJdbcDao implements MasterDao {
+    private static final Logger LOGGER = LogManager.getLogger(MasterJdbcDao.class);
+
     ConnectionManager cm;
-    JdbcHelper helper;
+    GenericJdbcDao genericJdbcDao;
 
     public MasterJdbcDao() {
         this.cm = ConnectionManager.getInstance();
-        helper = new JdbcHelper(cm);
+        genericJdbcDao = new GenericJdbcDao(cm);
     }
 
     @Override
@@ -41,7 +43,6 @@ public class MasterJdbcDao implements MasterDao {
         PreparedStatement masterStatement = null;
         try {
             connection.setAutoCommit(false);
-
             userStatement = connection.prepareStatement(userQuery, Statement.RETURN_GENERATED_KEYS);
             masterStatement = connection.prepareStatement(masterQuery);
             userStatement.setString(1, master.getFirstName());
@@ -59,12 +60,12 @@ public class MasterJdbcDao implements MasterDao {
             masterStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception in transaction context");
             if (connection != null) {
                 try {
                     connection.rollback();
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    LOGGER.error("Cannot rollback() transaction");
                 }
             }
         } finally {
@@ -77,7 +78,7 @@ public class MasterJdbcDao implements MasterDao {
                 }
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error("Cannot set AutoCommit on true");
             }
 
         }
@@ -86,19 +87,19 @@ public class MasterJdbcDao implements MasterDao {
 
     @Override
     public Master findByEmail(String email) {
-        Master master = helper.findObject("SELECT * FROM user JOIN master on user.iduser=master.iduser " +
+        Master master = genericJdbcDao.findObject("SELECT * FROM user JOIN master on user.iduser=master.iduser " +
                 "WHERE e_mail=?", MasterMapper::map, email);
         return master;
     }
 
     @Override
     public Master find(Long id) {
-        return null;
+        return genericJdbcDao.findObject("SELECT * FROM master JOIN user on user.iduser=master.iduser WHERE master.idmaster=?", MasterMapper::map, id);
     }
 
     @Override
     public void update(Master master) {
-        helper.update("UPDATE master " +
+        genericJdbcDao.update("UPDATE master " +
                         "SET " +
                         "level=?, " +
                         "phone_number=?, " +
@@ -118,7 +119,7 @@ public class MasterJdbcDao implements MasterDao {
             preparedStatement.setString(1, description);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Cannot update description value for master obj");
         }
     }
 
@@ -129,13 +130,13 @@ public class MasterJdbcDao implements MasterDao {
 
     @Override
     public List<Master> findAll() {
-        List<Master> list = helper.findAll("SELECT * FROM user JOIN master ON user.iduser=master.iduser", MasterMapper::map);
+        List<Master> list = genericJdbcDao.findAll("SELECT * FROM user JOIN master ON user.iduser=master.iduser", MasterMapper::map);
         return list;
     }
 
     @Override
     public Long findRoleId(Role role) {
-        return helper.findObject("SELECT idrole FROM role " +
+        return genericJdbcDao.findObject("SELECT idrole FROM role " +
                 "WHERE role=?", rs -> {
             try {
                 return rs.getLong("idrole");

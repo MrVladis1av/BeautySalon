@@ -7,6 +7,15 @@ public class Comment {
     private String comment;
     private User user;
     private Master master;
+    private Record record;
+
+    public Record getRecord() {
+        return record;
+    }
+
+    public void setRecord(Record record) {
+        this.record = record;
+    }
 
     public Long getCommentId() {
         return commentId;
@@ -55,5 +64,16 @@ public class Comment {
     public int hashCode() {
 
         return Objects.hash(commentId, comment, user, master);
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId=" + commentId +
+                ", comment='" + comment + '\'' +
+                ", user=" + user +
+                ", master=" + master +
+                ", record=" + record +
+                '}';
     }
 }
